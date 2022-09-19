@@ -21,6 +21,7 @@ const loadSpinner = () => {
 };
 
 const editor = new Editor();
+editor();
 
 if (typeof editor === 'undefined') {
   loadSpinner();
@@ -37,4 +38,6 @@ if ('serviceWorker' in navigator) {
 
 window.addEventListener('load', function () {
   document.getElementById('logo').src = Logo;
+  initdb();
 });
+
