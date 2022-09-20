@@ -2,7 +2,7 @@ import { openDB } from 'idb';
 import 'regenerator-runtime/runtime';
 
 export const initdb = async () =>
-  openDB('jate', 1, {
+  openDB('jate_db', 1, {
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
         console.log('jate database already exists');
@@ -14,11 +14,11 @@ export const initdb = async () =>
   });
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
-export const putDb = async (content) => {
+export const putDb = async (id) => {
   console.log('PUT to the database');
 
   // Create a connection to the database and specify the version we want to use.
-  const jateDb = await openDB('jate', 1);
+  const jateDb = await openDB('jate_db', 1);
 
   // Create a new transaction and specify the store and data privileges.
   const tx = jateDb.transaction('jate', 'readwrite');
@@ -27,7 +27,7 @@ export const putDb = async (content) => {
   const store = tx.objectStore('jate');
 
   // Use the .add() method on the store and pass in the content.
-  const request = store.put({ content:content });
+  const request = store.put({ content: id });
 
   // Get confirmation of the request.
   const result = await request;
@@ -39,7 +39,7 @@ export const getDb = async () => {
   console.log('GET from the database');
 
   // Create a connection to the IndexedDB database and the version we want to use.
-  const jateDb = await openDB('jate', 1);
+  const jateDb = await openDB('jate_db', 1);
 
   // Create a new transaction and specify the store and data privileges.
   const tx = jateDb.transaction('jate', 'readonly');

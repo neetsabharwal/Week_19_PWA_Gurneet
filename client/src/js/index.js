@@ -3,8 +3,8 @@ import Editor from './editor';
 import './database';
 import '../css/style.css';
 import Logo from '../images/logo.png';
-import { Tooltip, Toast, Popover } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { initdb } from './database';
 
 const main = document.querySelector('#main');
 main.innerHTML = '';
@@ -21,7 +21,6 @@ const loadSpinner = () => {
 };
 
 const editor = new Editor();
-editor();
 
 if (typeof editor === 'undefined') {
   loadSpinner();
