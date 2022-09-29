@@ -2,9 +2,9 @@ import { Workbox } from 'workbox-window';
 import Editor from './editor';
 import './database';
 import '../css/style.css';
-import Logo from '../images/logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { initdb } from './database';
+import './install';
+import logo from "../images/logo.png";
 
 const main = document.querySelector('#main');
 main.innerHTML = '';
@@ -29,32 +29,15 @@ if (typeof editor === 'undefined') {
 // Check if service workers are supported
 if ('serviceWorker' in navigator) {
   // register workbox service worker
-  const workboxSW = new Workbox('/src-sw.js');
-  workboxSW.register();
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./src-sw.js');
+  });
+  // const workboxSW = new Workbox('../../src-sw.js');
+  // workboxSW.register();
 } else {
   console.error('Service workers are not supported in this browser.');
 }
 
-window.addEventListener('load', function () {
-  document.getElementById('logo').src = Logo;
-  initdb();
+window.addEventListener('load',function () {
+  document.getElementById('logo').src = logo;
 });
-
-const installBtn = document.getElementById("buttonInstall");
-
-window.addEventListener('beforeinstallprompt', (event) => {
-  event.preventDefault();
-  installBtn.style.visibility = 'visible';
-
-  installBtn.addEventListener('click', () => {
-    event.prompt();
-    installBtn.setAttribute('disabled', true);
-    installBtn.textContent = 'Installed!';
-  });
-});
-
-window.addEventListener('appinstalled', (event) => {
-  console.log('👍', 'appinstalled', event);
-});
-
-
