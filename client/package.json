@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "jate",
   "private": "true",
   "scripts": {
     "dev": "webpack-dev-server",
